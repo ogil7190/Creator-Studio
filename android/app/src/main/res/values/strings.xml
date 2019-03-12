@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">GR8qw12ifVw7B4RN3IEoR_qeCOM-efea177c-2876-4bb3-b267-0f984d263df9</string>
+    <string name="app_name">Creator Studio</string>
+</resources>

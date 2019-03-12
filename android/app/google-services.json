@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "807809885865",
+    "firebase_url": "https://creator-studio-9f2ad.firebaseio.com",
+    "project_id": "creator-studio-9f2ad",
+    "storage_bucket": "creator-studio-9f2ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807809885865:android:89748b2e3b10228e",
+        "android_client_info": {
+          "package_name": "com.campusstory.creatorstudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807809885865-9flsmvkj8nusot620cp093irb1jrs1tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNJ1bxRH9zwXdZohxyswbEVe6NGUbS-zw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

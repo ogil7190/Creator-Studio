@@ -1,0 +1,54 @@
+{
+  "name": "CreatorStudio",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "iphone": "react-native run-ios --device",
+    "iphone-release": "react-native run-ios --configuration Release --device",
+    "ios-release": "react-native run-ios --configuration Release",
+    "android-release": "react-native run-android --variant=release"
+  },
+  "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "^1.0.0",
+    "axios": "^0.18.0",
+    "react": "16.6.3",
+    "react-native": "0.57.8",
+    "react-native-background-upload": "^5.0.0",
+    "react-native-blur": "^3.2.2",
+    "react-native-code-push": "^5.5.2",
+    "react-native-fast-image": "^5.1.2",
+    "react-native-fetch-blob": "^0.10.8",
+    "react-native-file-viewer": "^1.0.12",
+    "react-native-firebase": "^5.2.3",
+    "react-native-image-picker": "^0.27.2",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-linear-gradient": "^2.5.3",
+    "react-native-modal-datetime-picker": "^6.0.0",
+    "react-native-navigation": "^2.5.0",
+    "react-native-progress-bar-animated": "^1.0.6",
+    "react-native-textinput-effects": "^0.4.2",
+    "react-native-vector-icons": "^6.1.0",
+    "react-native-video": "^4.3.1",
+    "react-native-video-helper": "^1.2.3",
+    "realm": "^2.22.0",
+    "rn-fetch-blob": "^0.10.15"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "^0.51.1",
+    "react-test-renderer": "16.6.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./fonts/"
+    ]
+  }
+}
