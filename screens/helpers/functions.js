@@ -17,6 +17,45 @@ export function shuffleArray(array, callback) {
   }
   callback(array);
 }
+
+export function getReaction(type){
+  switch(type){
+      case 8 : return { name : 'Love', value : '😍', type : 1}
+      case 1 : return { name : 'Superb', value : '👌', type : 2}
+      case 2 : return { name : 'Clap', value : '👏', type : 3}
+      case 3 : return { name : 'Hot', value : '🔥', type : 4}
+      case 4 : return { name : 'Haha', value : '😂', type : 5}
+      case 5 : return { name : 'Kiss', value : '💋', type : 6}
+      case 6 : return { name : 'Yummy', value : '😋', type : 7}
+      case 7 : return { name : 'Heart', value : '❤️', type : 8}
+      default : return { name : 'Love', value : '😍', type : 1}
+  }
+}
+
+export function getColors(type){
+  let arr = [];
+  switch(type){
+      case 1 : arr = ['#0056e5', '#85f5ff']; break;
+      case 2 : arr = ['#232526', '#414345']; break;
+      case 3 : arr = ['#f12711', '#f5af19']; break;
+      case 4 : arr = ['#20BF55', '#01BAEF']; break;
+      case 5 : arr = ['#647DEE', '#7F53AC']; break;
+      default : arr = ['#0056e5', '#85f5ff']; break;
+  }
+  return arr;
+}
+
+export function getColorName(type){
+  switch(type){
+      case 1 : return 'Cyanity';
+      case 2 : return 'Ghost';
+      case 3 : return 'Flare';
+      case 4 : return 'Wild';
+      case 5 : return 'Ligo';
+      default : return 'Cyanity';
+  }
+}
+
 export function getMonthName(num) {
   switch (num) {
     case 1:

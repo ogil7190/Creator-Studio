@@ -108,9 +108,9 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy "RNN.reactNativeVersion", "reactNative57" // See note below
-        versionCode 2
+        versionCode 3
         multiDexEnabled true
-        versionName "1.1"
+        versionName "1.2"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -178,7 +178,6 @@ dependencies {
     implementation project(':react-native-video-helper')
     implementation project(':react-native-video')
     implementation 'net.alhazmy13.MediaPicker:libary:2.4.4'
-//    implementation 'com.writingminds:FFmpegAndroid:0.3.2'
     implementation project(':videocompressor')
 }
 

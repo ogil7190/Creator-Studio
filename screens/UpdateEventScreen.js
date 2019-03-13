@@ -480,11 +480,11 @@ class UpdateEventScreen extends React.Component {
                             <Icon style={{ alignSelf: 'center', color: '#514A9D', }} size={35} name="ios-call" />
                         </View>
                         <TextInput
-                            numberOfLines = {1}
-                            maxLength = {80}
+                            multiline = {true}
+                            maxLength = {100}
                             placeholder = "Contact Details with name in brackets"
                             placeholderTextColor = '#555'
-                            style={{color : '#333', borderWidth : 0.2, flex : 1, padding : 0, paddingLeft : 5, borderColor : '#888', borderRadius : 5, fontSize : 15,}}
+                            style={{color : '#333', borderWidth : 0.2, flex : 1, padding : 0, paddingLeft : 5, borderColor : '#888', borderRadius : 5, fontSize : 15, minHeight : 80}}
                             autoCapitalize = 'sentences'
                             keyboardType = 'default'
                             keyboardAppearance = 'light'

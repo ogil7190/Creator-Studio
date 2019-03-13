@@ -7,6 +7,7 @@ import { Navigation } from 'react-native-navigation';
 import Realm from '../realm';
 import {goInitializing} from './helpers/Navigation'
 import SessionStore from '../SessionStore';
+import urls from '../URLS';
 
 class SettingsScreen extends React.Component {
     constructor(props) {
@@ -99,6 +100,30 @@ class SettingsScreen extends React.Component {
                         <Icon3 name = 'users-cog' size = {25} color = '#514A9D' />
                     </TouchableOpacity>
 
+                    <TouchableOpacity style={{flexDirection : 'row', padding : 10, marginTop : 5, backgroundColor : '#fff'}} activeOpacity = {0.7} onPress = {()=>this.gotoScreen('Privacy Policy Screen')}>
+                        <View style={{flex : 1}}>
+                            <Text style={{fontSize : 15, color : '#333'}}>
+                                Privacy Policy
+                            </Text>
+                            <Text style={{fontSize : 11, marginTop : 5, color : '#888'}}>
+                                Read our Privacy Policy
+                            </Text>
+                        </View>
+                        <Icon3 name = 'users-cog' size = {25} color = '#514A9D' />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{flexDirection : 'row', padding : 10, marginTop : 5, backgroundColor : '#fff'}} activeOpacity = {0.7} onPress = {()=>this.gotoScreen('Terms Screen')}>
+                        <View style={{flex : 1}}>
+                            <Text style={{fontSize : 15, color : '#333'}}>
+                                App Usage Terms
+                            </Text>
+                            <Text style={{fontSize : 11, marginTop : 5, color : '#888'}}>
+                                Terms for using this App.
+                            </Text>
+                        </View>
+                        <Icon3 name = 'users-cog' size = {25} color = '#514A9D' />
+                    </TouchableOpacity>
+
                     <TouchableOpacity style={{flexDirection : 'row', padding : 10, marginTop : 5, backgroundColor : '#fff'}} activeOpacity = {0.7} onPress = {this.logout}>
                         <View style={{flex : 1}}>
                             <Text style={{fontSize : 15, color : '#333'}}>
@@ -110,6 +135,14 @@ class SettingsScreen extends React.Component {
                         </View>
                         <Icon3 name = 'user-shield' size = {25} color = '#514A9D' />
                     </TouchableOpacity>
+                </View>
+
+                <View style={{position : 'absolute', justifyContent : 'center', alignItems : 'center', bottom : 15, flexDirection : 'row'}}>
+                    <Text style={{color : '#999', width : '100%', textAlign : 'center', fontSize : 12}}>
+                        {
+                            urls.APP_VERSION
+                        }
+                    </Text>
                 </View>
             </View>
         );

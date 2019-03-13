@@ -3,68 +3,46 @@ import { View, TouchableOpacity, TextInput, Text } from 'react-native';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
+import {getReaction, getColors, getColorName} from '../screens/helpers/functions';
 
 class PostEditor extends React.Component {
     state = {
         type_color : 1,
         type_font : 'Regular',
+        font_size : 20,
         message : '',
-        reaction_type : { name : 'Clap', value : '👏', type : 1}
-    }
-
-    getColors = (type) =>{
-        let arr = [];
-        switch(type){
-            case 1 : arr =  ['#0056e5', '#85f5ff']; break;
-            case 2 : arr = ['#232526', '#414345'];break;
-            case 3 : arr = ['#f12711', '#f5af19'];break;
-            case 4 : arr =  ['#20BF55', '#01BAEF']; break;
-            case 5 : arr =  ['#647DEE', '#7F53AC']; break;
-            default : arr = ['#0056e5', '#85f5ff'];break;
-        }
-        return arr;
+        reaction_type : getReaction(0)
     }
 
     resetReaction = ()=>{
-        this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
+        this.setState({reaction_type : getReaction(0)});
     }
 
     changeReaction = () =>{
         const {reaction_type}  = this.state;
-        switch(reaction_type.type){
-            case 6 : return this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
-            case 1 : return this.setState({reaction_type : { name : 'Superb', value : '👌', type : 2}});
-            case 2 : return this.setState({reaction_type : { name : 'Love', value : '😍', type : 3}});
-            case 3 : return this.setState({reaction_type : { name : 'Hot', value : '🔥', type : 4}});
-            case 4 : return this.setState({reaction_type : { name : 'Haha', value : '😂', type : 5}});
-            case 5 : return this.setState({reaction_type : { name : 'Yummy', value : '😋', type : 6}});
-            default : return this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
-        }
+        this.setState({reaction_type : getReaction(reaction_type.type)});
     }
 
     exportData = () =>{
-        const { type_color, type_font, message, reaction_type } = this.state;
+        const { type_color, type_font, message, reaction_type, font_size } = this.state;
         const mssg = message.trim();
         const empty = mssg.length > 4 ? false : true;
-        return {type_color, type_font, message : mssg, reaction_type, type : 'Post', empty};
-    }
-
-    getColorName = (type) =>{
-        switch(type){
-            case 1 : return 'Cyanity';
-            case 2 : return 'Ghost';
-            case 3 : return 'Flare';
-            case 4 : return 'Wild';
-            case 5 : return 'Porno';
-            default : return 'Cyanity';
-        }
+        return {type_color, type_font, message : mssg, reaction_type, type : 'Post', font_size, empty};
     }
 
     changeColors = (type) =>{
-        if(type > 0 && type < 3){
+        if(type > 0 && type < 5){
             this.setState({type_color : this.state.type_color + 1});
         } else {
             this.setState({type_color : 1});
+        }
+    }
+
+    changeFontSize = () =>{
+        switch(this.state.font_size){
+            case 20 : return this.setState({font_size : 24});
+            case 24 : return this.setState({font_size : 16});
+            default : return this.setState({font_size : 20});
         }
     }
 
@@ -80,7 +58,7 @@ class PostEditor extends React.Component {
 
     render() {
         const {
-            type_color, type_font, message, reaction_type
+            type_color, type_font, message, reaction_type, font_size
         } = this.state;
         return(
         <View style={{flex : 1, backgroundColor : '#eee'}}>
@@ -91,14 +69,14 @@ class PostEditor extends React.Component {
                 justifyContent : 'center',
                 alignItems : 'center'
             }}
-            colors={this.getColors(type_color)} 
+            colors={getColors(type_color)} 
             >
             <View style={{position : 'absolute', top : 0, left : 0, padding : 5, margin : 5, flexDirection : 'row'}}>
                 <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center'}} onPress = {()=>this.changeColors(type_color)}>
                     <View style={{width : 30, height : 30, borderRadius : 30, padding : 2, backgroundColor : 'rgba(255, 255, 255, 0.4)'}}>
-                        <LinearGradient style = {{flex : 1, borderRadius : 30}} colors={this.getColors(type_color)} />
+                        <LinearGradient style = {{flex : 1, borderRadius : 30}} colors={getColors(type_color)} />
                     </View>
-                    <Text style={{color : '#fff', fontSize : 14}}>{' ' + this.getColorName(type_color)}</Text>
+                    <Text style={{color : '#fff', fontSize : 14}}>{' ' + getColorName(type_color)}</Text>
                 </TouchableOpacity>
                 
                 <View style={{flex : 1}} />
@@ -122,18 +100,18 @@ class PostEditor extends React.Component {
                 
                 <View style={{flex : 1}} />
 
-                <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center'}} onPress = {this.resetReaction}>
-                    <Text style={{color : '#fff', fontSize : 14}}>{'Reset Reaction  '}</Text>
+                <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center'}} onPress = {this.changeFontSize}>
+                    <Text style={{color : '#fff', fontSize : 14}}>{'Font Size  '}</Text>
                     <View style={{width : 25, height : 25, borderRadius : 30, padding : 3, backgroundColor : 'rgba(255, 255, 255, 0.4)', justifyContent : 'center', alignItems : 'center'}}>
-                        <Icon3 name = 'replay' size = {20} color = '#fff' />
+                        <Icon3 name = 'format-size' size = {20} color = '#fff' />
                     </View>
                 </TouchableOpacity>
             </View>
 
                 <TextInput
                     multiline = {true}
-                    maxLength = {250}
-                    style = {{color : '#fff', fontSize : 20, textAlign : 'center', margin : 10, padding : 5, fontFamily : 'Roboto-' + type_font}}
+                    maxLength = {400}
+                    style = {{color : '#fff', fontSize : font_size, textAlign : 'center', margin : 10, padding : 5, fontFamily : 'Roboto-' + type_font}}
                     autoCapitalize = 'sentences'
                     keyboardType = 'twitter'
                     keyboardAppearance = 'light'

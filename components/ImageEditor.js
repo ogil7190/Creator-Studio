@@ -1,17 +1,19 @@
 import React from 'react';
-import { Alert, View, TouchableOpacity, Text } from 'react-native';
+import {View, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-picker';
 import FastImage from 'react-native-fast-image';
+import {getReaction} from '../screens/helpers/functions';
 
 class ImageEditor extends React.Component {
     state = {
         imageURI : '',
         imageType : '',
         imageName : '',
-        reaction_type : { name : 'Clap', value : '👏', type : 1}
+        content_mode : FastImage.resizeMode.contain,
+        reaction_type : getReaction(0)
     }
 
     openImagePicker = () =>{
@@ -26,7 +28,6 @@ class ImageEditor extends React.Component {
         };
 
         ImagePicker.launchImageLibrary(options, (response) => {
-            // Alert.alert(JSON.stringify(response.uri));
             if (response.didCancel) {
                 console.log('CANCELED');
             } else if (response.error) {
@@ -34,42 +35,42 @@ class ImageEditor extends React.Component {
             } else if (response.customButton) {
                 console.log('CUSTOM ACTION');
             } else {
-                // Alert.alert(JSON.stringify(response.data));
                 this.setState({imageURI : response.uri, imageType : response.type, imageName : response.fileName});
             }
         });
     }
 
     exportData = () =>{
-        const { imageURI, imageType, imageName, reaction_type} = this.state;
+        const { imageURI, imageType, imageName, reaction_type, content_mode} = this.state;
         const empty = imageURI !== '' ? false : true;
         this.setState({imageURI : ''}, ()=>{
             this.resetReaction();
         });
-        return {imageURI, imageType, imageName, reaction_type, type : 'Image', empty};
+        return {imageURI, imageType, imageName, reaction_type, type : 'Image', content_mode, empty};
     }
 
     resetReaction = ()=>{
-        this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
+        this.setState({reaction_type : getReaction(0)});
     }
 
     changeReaction = () =>{
         const {reaction_type}  = this.state;
-        switch(reaction_type.type){
-            case 6 : return this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
-            case 1 : return this.setState({reaction_type : { name : 'Superb', value : '👌', type : 2}});
-            case 2 : return this.setState({reaction_type : { name : 'Love', value : '😍', type : 3}});
-            case 3 : return this.setState({reaction_type : { name : 'Hot', value : '🔥', type : 4}});
-            case 4 : return this.setState({reaction_type : { name : 'Haha', value : '😂', type : 5}});
-            case 5 : return this.setState({reaction_type : { name : 'Yummy', value : '😋', type : 6}});
-            default : return this.setState({reaction_type : { name : 'Clap', value : '👏', type : 1}});
+        this.setState({reaction_type : getReaction(reaction_type.type)});
+    }
+
+    changeContentMode = () =>{
+        switch(this.state.content_mode){
+            case FastImage.resizeMode.cover : return this.setState({content_mode : FastImage.resizeMode.contain});
+            case FastImage.resizeMode.contain : return this.setState({content_mode : FastImage.resizeMode.cover});
+            default : return this.setState({content_mode : FastImage.resizeMode.contain});
         }
     }
 
     render() {
         const {
             imageURI,
-            reaction_type
+            reaction_type,
+            content_mode
         } = this.state;
         return(
             <View style={{flex : 1, justifyContent : 'center'}}>
@@ -94,7 +95,7 @@ class ImageEditor extends React.Component {
                                 height : '100%',
                                 width : '100%'
                             }}
-                            resizeMode={FastImage.resizeMode.contain}
+                            resizeMode={content_mode}
                         >
                         <View style={{position : 'absolute', top : 10, left : 0, padding : 5, margin : 5, flexDirection : 'row'}}>
                             <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center',}} onPress = {()=>this.setState({imageURI : ''})}>
@@ -124,10 +125,10 @@ class ImageEditor extends React.Component {
                             
                             <View style={{flex : 1}} />
 
-                            <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center'}} onPress = {this.resetReaction}>
-                                <Text style={{color : '#fff', fontSize : 14}}>{'Reset Reaction  '}</Text>
+                            <TouchableOpacity style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center'}} onPress = {this.changeContentMode}>
+                                <Text style={{color : '#fff', fontSize : 14}}>{'Change Mode  '}</Text>
                                 <View style={{width : 25, height : 25, borderRadius : 30, padding : 3, backgroundColor : 'rgba(255, 255, 255, 0.4)', justifyContent : 'center', alignItems : 'center'}}>
-                                    <Icon3 name = 'replay' size = {20} color = '#fff' />
+                                    <Icon3 name = 'crop' size = {20} color = '#fff' />
                                 </View>
                             </TouchableOpacity>
                         </View>

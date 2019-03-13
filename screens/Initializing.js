@@ -1,11 +1,12 @@
 import React from 'react';
-import {TextInput, TouchableOpacity, ScrollView, View, Text, Image, ActivityIndicator, StatusBar } from 'react-native';
+import {TextInput, TouchableOpacity, ScrollView, Platform, View, Text, Image, ActivityIndicator, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Feather'
 import { goHome } from './helpers/Navigation';
 import Constants from '../constants';
 import urls from '../URLS';
+import { Navigation } from 'react-native-navigation'
 import SessionStore from '../SessionStore';
 
 class App extends React.Component {
@@ -70,6 +71,19 @@ class App extends React.Component {
         goHome();
     };
 
+    gotoScreen = (name) =>{
+        Navigation.showModal({
+          component: {
+            name,
+            options: {
+              topBar: {
+                visible: false
+              }
+            }
+          }
+        });
+      }
+
     render() {
         const {
             user_id, password, loading, error
@@ -81,7 +95,7 @@ class App extends React.Component {
                 <LinearGradient style={{ flex: 1 }} colors={['#514A9D', '#24C6DC']}>
                     <ScrollView
                     >
-                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', marginTop : 80 }}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', marginTop : Platform.OS === 'ios' ?  80 : 60 }}>
                         <Image source={require('../media/LogoWhite.png')} style={{ width: 100, height: 100, resizeMode: 'contain', alignSelf: 'center' }} />
                         <Text style={{ marginTop: 20, fontFamily: 'Roboto-Regular', textAlign: 'center', color: '#fff', fontSize: 25 }}>Creator's Studio</Text>
                         <Text style={{ marginTop: 10, fontFamily: 'Roboto-Light', textAlign: 'center', color: '#fff', fontSize: 14 }}>Thinking BIG, Changing Lives</Text>
@@ -91,7 +105,7 @@ class App extends React.Component {
                                 <TextInput
                                     autoCapitalize = 'none'
                                     keyboardType = 'default'
-                                    style = {{flex : 1, fontSize : 18, margin : 15, marginTop : 8, marginBottom : 8, color : '#222'}}
+                                    style = {{flex : 1, fontSize : 18, margin : 15, marginTop : 10, marginBottom : 10, color : '#222'}}
                                     placeholder = 'User ID'
                                     placeholderTextColor = '#555'
                                     value = {user_id}
@@ -103,14 +117,24 @@ class App extends React.Component {
                                 <TextInput
                                     autoCapitalize = 'none'
                                     secureTextEntry = {true}
-                                    style = {{flex : 1, fontSize : 18, margin : 15, marginTop : 8, marginBottom : 8, color : '#222'}}
+                                    style = {{flex : 1, fontSize : 18, margin : 15, marginTop : 10, marginBottom : 10, color : '#222'}}
                                     placeholder = 'Password'
                                     placeholderTextColor = '#555'
                                     value = {password}
                                     onChangeText = {(val)=>this.setState({password : val})}
                                 />
                             </View>
-                            
+
+                            <TouchableOpacity activeOpacity = {0.8} onPress = {()=>this.gotoScreen('Privacy Policy Screen')}>
+                                <Text style={{fontSize : 13, color : '#fff', textAlign : 'center', margin : 15, marginTop : 0,}}>
+                                    {
+                                        'By continuing furthur you agree to Campus Story '
+                                    }
+                                    <Text style={{textDecorationLine : 'underline'}}>
+                                        {'terms of use & privacy policy.'}
+                                    </Text>
+                                </Text>
+                            </TouchableOpacity>
                             {
                                 loading &&
                                 <ActivityIndicator style={{ padding: 20 }} size="small" color="#fff" />

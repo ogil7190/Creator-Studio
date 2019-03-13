@@ -15,6 +15,7 @@ import ImageThumbnail from '../components/ImageThumbnail';
 import VideoThumbnail from '../components/VideoThumbnail';
 import EventCardBig from '../components/EventCardBig';
 import InformationCard from '../components/InformationCard';
+import firebase from 'react-native-firebase';
 
 const STORY_THRESHOLD = constants.STORY_THRESHOLD;
 const WIDTH = Dimensions.get('window').width;
@@ -32,8 +33,23 @@ class Home extends React.Component {
         stats : {channel_visits : '' , action_taken : '', reactions : ''}
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         this.refresh();
+        this.checkPermission();
+    }
+
+    checkPermission = async () =>{
+        const enabled = await firebase.messaging().hasPermission();
+        if(enabled){
+            /* OK */
+        } else {
+            try {
+                await firebase.messaging().requestPermission();
+                /* PERMISSION GRANTED */
+            } catch (error) {
+                /* PERMISSION DENIED */
+            }
+        }
     }
 
     refresh = () =>{

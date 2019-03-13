@@ -16,6 +16,8 @@ import StoryPreviewScreen from "./screens/StoryPreviewScreen";
 import UpdateChannelScreen from "./screens/UpdateChannelScreen";
 import ManageModerators from "./screens/ManageModerators";
 import ChangePassword from "./screens/ChangePassword";
+import PrivacyPolicyScreen from "./screens/PrivacyPolicyScreen";
+import TermsScreen from "./screens/TermsScreen";
 import SessionStore from './SessionStore';
 import CodePush from 'react-native-code-push';
 import NavigationComponents from './NavigationComponents';
@@ -48,6 +50,8 @@ Navigation.registerComponent(`Settings Screen`, () => SettingsScreen);
 Navigation.registerComponent(`Update Channel Screen`, () => UpdateChannelScreen);
 Navigation.registerComponent(`Manage Moderators`, () => ManageModerators);
 Navigation.registerComponent(`Change Password`, () => ChangePassword);
+Navigation.registerComponent(`Privacy Policy Screen`, () => PrivacyPolicyScreen);
+Navigation.registerComponent(`Terms Screen`, () => TermsScreen);
 
 init = () =>{
   Navigation.setRoot({
